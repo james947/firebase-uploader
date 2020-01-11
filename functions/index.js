@@ -7,3 +7,10 @@ exports.onFileChange = functions.storage.object().onFinalize( request => {
  console.log(event)
  return;
 });
+
+
+exports.uploadFile = functions.https.onRequest((req, res) =>{
+    res.status(200).json({
+        message: 'it worked!'
+    })
+});
