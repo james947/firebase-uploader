@@ -6,7 +6,7 @@ const gcs = require('@google-cloud/storage')
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.onFileChange = functions.storage.object().onFinalize( request => {
- const object = event.stopImmediatePropagation;
+ const object = event.data;
  const bucket = object.bucket;
  const contentType = object.contentType;
  const filePath = object.name;
@@ -21,6 +21,7 @@ exports.onFileChange = functions.storage.object().onFinalize( request => {
  const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath));
  const metadata = {contentType: contentType };
 
+ // eslint-disable-next-line consistent-return
  return destBucket.file(filePath).download({
      destination: tmpFilePath,
  }).then(() => {
